@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Авторизация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = User.Identity.Name;
+}
+
+<h2>Авторизация</h2>
+<h4>Добро пожаловать, @user</h4>

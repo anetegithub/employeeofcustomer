@@ -1,0 +1,59 @@
+﻿@using Emp = WebClient.Models.Employee;
+@using DepartmentCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Department>;
+@using SexCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Sex>;
+@using ExpCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Experience>;
+@using LangCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.ProgrammingLanguage>;
+@model Emp
+@{
+    ViewBag.Title = "Редактирование сотрудника";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Departments = new DepartmentCRUDRepository().All(x => !x.Deleted).ToList();
+    var Sex = new SexCRUDRepository().All(x => !x.Deleted).ToList();
+    var Exp = new ExpCRUDRepository().All(x => !x.Deleted).ToList();
+    var Lang = new LangCRUDRepository().All(x => !x.Deleted).ToList();
+    var exp = Exp.Where(x => x.Employee == Model.Id).FirstOrDefault();
+    var selectedLang = Exp.Where(l => l.Id == exp.Language).Select(x => x.Id).FirstOrDefault();
+}
+
+<h2>Редактировать сотрудника</h2>
+@using (Html.BeginForm("Update", "employee", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col s6 input-field autocompletename">
+            <input type="text" name="Name" value="@Model.Name" class="autocomplete" />
+            <label for="Name">Имя</label>
+        </div>
+        <div class="col s6 input-field">
+            <input type="text" name="Surname" value="@Model.Surname" />
+            <label for="Surname">Фамилия</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6 input-field">
+            <input type="number" name="Age" value="@Model.Age" />
+            <label for="Name">Возраст</label>
+        </div>
+        <div class="col s6 input-field">
+            @Html.DropDownList("Sex", Sex.Select(x => new SelectListItem() { Text = x.Title, Value = x.Id.ToString(), Selected=x.Id==Model.Sex }), new { onchange = "app.init_autocomplete();" })
+            <label for="Sex">Пол</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6 input-field">
+            @Html.DropDownList("Department", Departments.Select(x => new SelectListItem() { Text = x.Title, Value = x.Id.ToString(), Selected = x.Id == Model.Department }))
+            <label for="Department">Отдел</label>
+        </div>
+        <div class="col s6 input-field">
+            @Html.DropDownList("Language", Lang.Select(x => new SelectListItem() { Text = x.Title, Value = x.Id.ToString(), Selected = x.Id == selectedLang }))
+            <label for="Language">Имеет опыт работы с:</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <input type="hidden" name="Experience" value="@exp.Id" />
+            @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x=>x.Created)
+            <button type="submit" class="btn light-blue">Сохранить</button>
+        </div>
+    </div>
+}

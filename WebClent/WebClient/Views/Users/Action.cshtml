@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Пользователи</h2>
+<div class="row">
+    <div class="col s6">
+        <a href="@Url.Action("auth")" class="btn btn-large purple fullwidth">Авторизоваться</a>
+    </div>
+    <div class="col s6">
+        <a href="@Url.Action("add")" class="btn btn-large blue fullwidth">Создать пользователя</a>
+    </div>
+</div>

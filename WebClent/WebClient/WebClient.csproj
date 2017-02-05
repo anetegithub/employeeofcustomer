@@ -40,6 +40,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -112,14 +121,92 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Contexts\SiteDbContext.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICRUDModel.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Migrations\201702050857425_users.cs" />
+    <Compile Include="Migrations\201702050857425_users.Designer.cs">
+      <DependentUpon>201702050857425_users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050858540_departments.cs" />
+    <Compile Include="Migrations\201702050858540_departments.Designer.cs">
+      <DependentUpon>201702050858540_departments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050859275_program_lang.cs" />
+    <Compile Include="Migrations\201702050859275_program_lang.Designer.cs">
+      <DependentUpon>201702050859275_program_lang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050900174_employees.cs" />
+    <Compile Include="Migrations\201702050900174_employees.Designer.cs">
+      <DependentUpon>201702050900174_employees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050900433_experience.cs" />
+    <Compile Include="Migrations\201702050900433_experience.Designer.cs">
+      <DependentUpon>201702050900433_experience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050924272_deleteFlag.cs" />
+    <Compile Include="Migrations\201702050924272_deleteFlag.Designer.cs">
+      <DependentUpon>201702050924272_deleteFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702050948132_record_requests.cs" />
+    <Compile Include="Migrations\201702050948132_record_requests.Designer.cs">
+      <DependentUpon>201702050948132_record_requests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702051143135_hey-this-is-great-ef-mapping.cs" />
+    <Compile Include="Migrations\201702051143135_hey-this-is-great-ef-mapping.Designer.cs">
+      <DependentUpon>201702051143135_hey-this-is-great-ef-mapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Experience.cs" />
+    <Compile Include="Models\ProgrammingLanguage.cs" />
+    <Compile Include="Models\Record.cs" />
+    <Compile Include="Models\RecordedRequest.cs" />
+    <Compile Include="Models\Sex.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Modules\BasicAuthModule.cs" />
+    <Compile Include="Modules\RequestWriterModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CRUDRepository.cs" />
+    <Compile Include="Utility\CRUDModel.cs" />
+    <Compile Include="ViewModels\EmployeeCreateViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\custom.css" />
     <Content Include="Global.asax" />
+    <Content Include="materialize\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="materialize\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="materialize\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="materialize\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="materialize\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="materialize\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="materialize\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="materialize\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="materialize\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="materialize\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="materialize\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="materialize\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="materialize\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="materialize\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="materialize\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="materialize\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="materialize\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="materialize\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="materialize\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="materialize\fonts\roboto\Roboto-Thin.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="materialize\css\materialize.css" />
+    <Content Include="materialize\css\materialize.min.css" />
+    <Content Include="materialize\js\materialize.js" />
+    <Content Include="materialize\js\materialize.min.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -140,15 +227,48 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Entry\Index.cshtml" />
+    <Content Include="Views\AuthorizedArea\Index.cshtml" />
+    <Content Include="Views\Users\add.cshtml" />
+    <Content Include="Views\Users\Action.cshtml" />
+    <Content Include="Views\Users\Auth.cshtml" />
+    <Content Include="Views\Employee\Read.cshtml" />
+    <Content Include="Views\Employee\Add.cshtml" />
+    <Content Include="Views\Employee\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702050857425_users.resx">
+      <DependentUpon>201702050857425_users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050858540_departments.resx">
+      <DependentUpon>201702050858540_departments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050859275_program_lang.resx">
+      <DependentUpon>201702050859275_program_lang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050900174_employees.resx">
+      <DependentUpon>201702050900174_employees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050900433_experience.resx">
+      <DependentUpon>201702050900433_experience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050924272_deleteFlag.resx">
+      <DependentUpon>201702050924272_deleteFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702050948132_record_requests.resx">
+      <DependentUpon>201702050948132_record_requests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702051143135_hey-this-is-great-ef-mapping.resx">
+      <DependentUpon>201702051143135_hey-this-is-great-ef-mapping.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

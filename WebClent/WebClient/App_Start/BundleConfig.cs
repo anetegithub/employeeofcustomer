@@ -14,9 +14,13 @@ namespace WebClient
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/scripts/material").Include(
+                        "~/materialize/js/materialize.js",
+                        "~/Scripts/app.js"));
+
+            bundles.Add(new StyleBundle("~/css/material").Include(
+                "~/materialize/css/materialize.css",
+                "~/css/custom.css"));
         }
     }
 }

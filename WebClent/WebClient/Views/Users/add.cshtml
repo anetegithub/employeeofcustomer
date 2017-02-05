@@ -1,0 +1,36 @@
+﻿@model bool?
+@{
+    ViewBag.Title = "Добвить пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Добавить пользователя</h3>
+@if(Model==null)
+{ 
+<form action="@Url.Action("add")" method="post">
+    <div class="row">
+        <div class="col s6 input-field">
+            <input type="text" name="Login" />
+            <label for="Login">Логин</label>
+        </div>
+        <div class="col s6 input-field">
+            <input type="password" name="Pwd" />
+            <label for="Login">Пароль</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s5">
+            <button class="btn purple fullwidth accent-2" type="submit">Создать</button>
+        </div>
+    </div>
+</form>
+}
+else
+{
+    <div class="card-panel grey lighten-5 z-depth-1">
+        <div class="row valign-wrapper">
+            <div class="col s12">
+                <h4 class="black-text">Пользователь @(Model==true ? "" : "не")создан</h4>                
+            </div>
+        </div>
+    </div>
+}

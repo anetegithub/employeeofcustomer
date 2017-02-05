@@ -1,0 +1,48 @@
+﻿@using Emp = WebClient.Models.Employee;
+@using DepartmentCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Department>;
+@using SexCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Sex>;
+@using ExpCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.Experience>;
+@using LangCRUDRepository = WebClient.Repositories.CRUDRepository<WebClient.Models.ProgrammingLanguage>;
+@model List<Emp>
+@{
+    ViewBag.Title = "Сотрудники";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Departments = new DepartmentCRUDRepository().All(x => !x.Deleted).ToList();
+    var Sex = new SexCRUDRepository().All(x => !x.Deleted).ToList();
+    var Exp = new ExpCRUDRepository().All(x => !x.Deleted).ToList();
+    var Lang = new LangCRUDRepository().All(x=>!x.Deleted).ToList();
+}
+
+<h2>Сотрудники</h2>
+<form class="row" action="read">
+    <div class="col s4">
+        <a href="@Url.Action("Add")" class="fullwidth btn pink accent-2">Создать нового</a>
+    </div>
+    <div class="col s4">
+        <input type="text" name="Name" value="@ViewBag.Searched" />
+    </div>
+    <div class="col s4">
+        <button type="submit" href="@Url.Action("read")" class="fullwidth btn yellow darken-3">Поиск по имени</button>
+    </div>
+</form>
+<div class="row">
+    @foreach (var Empl in Model)
+    {
+        var dep = Departments.Where(x => x.Id == Empl.Department).FirstOrDefault();
+        <div class="card col s12">
+            <div class="card-content">
+                <span class="card-title">@Empl.Surname @Empl.Name</span>
+                <p>
+                    Возраст: @Empl.Age<br />
+                    Пол: @Sex.Where(x => x.Id == Empl.Sex).Select(x => x.Title).FirstOrDefault()<br />
+                    Работает в отделе: <span class="green-text">@dep.Title</span> на <span class="purple-text">@dep.Tier</span> этаже<br />
+                    Имеет опыт работы с: <span class=" red-text">@Lang.Where(l => l.Id == Exp.Where(x => x.Employee == Empl.Id).Select(x => x.Language).FirstOrDefault()).Select(x => x.Title).FirstOrDefault()</span>
+                </p>
+            </div>
+            <div class="card-action">
+                <a class="purple-text" href="@Url.Action("Update", new { Id = Empl.Id })">Изменить</a>
+                <a class="red-text" href="@Url.Action("Delete", new { IdDeletingItem=Empl.Id})">Удалить</a>
+            </div>
+        </div>
+    }
+</div>
